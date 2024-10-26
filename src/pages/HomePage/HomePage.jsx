@@ -5,9 +5,10 @@ const HomePage = () => {
     <div className={s.homepage_wrapp}>
       <h2 className={s.title}>Welcome to our application!</h2>
       <p className={s.p}>
-        This application allows you to manage your contacts.
+        This application allows you to store and use your contacts as you see
+        fit.
       </p>
-      <p className={s.p}>Developer: Volodimir Fushtei</p>
+      <p className={s.p}>Developer: Dmytro Ostapenko</p>
     </div>
   );
 };
