@@ -14,7 +14,7 @@
   font-weight: bold;
 }
 .activeLink {
-  color: rgb(192, 86, 237);
+  color: rgb(86, 237, 207);
 }
 .wrapperLinks {
   display: flex;
