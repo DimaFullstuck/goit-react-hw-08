@@ -77,7 +77,7 @@
   font-size: 1.5em;
   font-weight: 500;
   margin-right: 10px;
-  fill: rgb(135, 31, 158);
+  fill: rgb(34, 173, 171);
   transition: color 0.3s ease;
   cursor: pointer;
   &:hover {
@@ -95,6 +95,6 @@
   &:hover {
     color: #0f0f0f;
   }
-  fill: rgb(126, 28, 148);
+  fill: rgb(28, 148, 148);
   margin-right: 10px;
 }
