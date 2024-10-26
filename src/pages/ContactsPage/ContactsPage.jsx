@@ -5,7 +5,7 @@ import s from "./ContactsPage.module.css";
 const ContactsPage = () => {
   return (
     <div className={s.contacts_container}>
-      <h2 className="text-3xl text-center">
+      <h2 className="text-4xl text-center">
         <ContactForm />
         <SearchBox />
         <ContactList />
