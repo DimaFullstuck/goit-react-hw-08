@@ -6,7 +6,7 @@ import {
 } from "../contacts/operations";
 import { logout } from "../auth/operations";
 
-const slice = createSlice({
+const contactsSlice = createSlice({
   name: "contacts",
   initialState: {
     items: [],
@@ -69,4 +69,4 @@ const slice = createSlice({
   },
 });
 
-export const contactReducer = slice.reducer;
+export const contactReducer = contactsSlice.reducer;

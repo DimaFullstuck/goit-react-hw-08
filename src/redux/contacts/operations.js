@@ -1,74 +1,40 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { goitApi } from "../auth/operations";
-const setAuth = (token) => {
-  goitApi.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
+import axios from "axios";
+
+axios.defaults.baseURL = "https://connections-api.goit.global/";
+
 export const fetchContacts = createAsyncThunk(
-  "contacts/fetchAll",
-  async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const token = state.auth.token;
-    console.log("Current token:", token);
-
-    setAuth(token);
-
-    if (!token) {
-      console.error("No token found");
-      return thunkAPI.rejectWithValue("No token found");
-    }
-
+  "contacts/fetchContacts",
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await goitApi.get("/contacts");
+      const response = await axios.get("/contacts");
       return response.data;
     } catch (error) {
-      console.error("Fetch contacts failed:", error);
-      return thunkAPI.rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
 
-export const deleteContacts = createAsyncThunk(
-  "contacts/deleteContact",
-  async (id, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const token = state.auth.token;
-
-    if (!token) {
-      console.error("No token ");
-      return thunkAPI.rejectWithValue("No token ");
-    }
-
-    setAuth(token);
-
-    try {
-      await goitApi.delete(`/contacts/${id}`);
-      return id;
-    } catch (error) {
-      console.error("Failed:", error);
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
-export const addContacts = createAsyncThunk(
+export const addContact = createAsyncThunk(
   "contacts/addContact",
-  async (contact, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const token = state.auth.token;
-
-    if (!token) {
-      console.error("No token ");
-      return thunkAPI.rejectWithValue("No token ");
-    }
-
-    setAuth(token);
-
+  async (newContact, { rejectWithValue }) => {
     try {
-      const response = await goitApi.post("/contacts", contact);
+      const response = await axios.post("/contacts", newContact);
       return response.data;
     } catch (error) {
-      console.error("Failed:", error);
-      return thunkAPI.rejectWithValue(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteContact = createAsyncThunk(
+  "contacts/deleteContact",
+  async (contactId, { rejectWithValue }) => {
+    try {
+      await axios.delete(`/contacts/${contactId}`);
+      return { id: contactId };
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );
