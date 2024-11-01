@@ -11,7 +11,7 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist/es/constants";
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const authPersistConfig = {
