@@ -1,64 +1,21 @@
-.wrapper {
+.container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  color: white;
-  font-weight: 700;
 }
-.link {
-  color: white;
-  font-weight: bold;
-}
-.activeLink {
-  color: rgb(22, 151, 171);
-}
-.wrapperLinks {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  margin-right: 10px;
-  margin-left: 10px;
-}
-.h1 {
-  font-size: 34px;
-  width: 1000px;
-  font-weight: bold;
-  color: rgb(237, 226, 226);
-  text-align: center;
 
-  transition: color 0.3s ease;
-  &:hover {
-    color: rgb(235, 228, 228);
-  }
-  &:active {
-    color: rgb(228, 220, 220);
-  }
+.username {
+  margin-right: 20px;
+  font-weight: bold;
 }
-.nameuser {
-  color: rgb(60, 241, 78);
-  display: flex;
-  margin: 0 12px 0 12px;
-  transition: color 0.3s ease;
 
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  &:hover {
-    color: rgb(45, 188, 23);
-  }
+.button {
+  padding: 5px 10px;
+  background-color: white;
+  color: rgb(135, 76, 94);
+  border: none;
+  cursor: pointer;
 }
-.name_wrapp {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-.login {
-  color: rgb(237, 86, 86);
-  display: flex;
-  gap: 4px;
-  font-weight: bold;
-  transition: color 0.3s ease;
+
+.button:hover {
+  background-color: #ddd;
 }

@@ -1,21 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  deleteContacts,
-  addContacts,
-  fetchContacts,
-} from "../contacts/operations";
-import { logout } from "../auth/operations";
+import { fetchContacts, addContact, deleteContact } from "./operations";
+
+const initialState = {
+  items: [],
+  loading: false,
+  error: null,
+};
 
 const contactsSlice = createSlice({
   name: "contacts",
-  initialState: {
-    items: [],
-    loading: false,
-    error: null,
-  },
-  reducers: [],
+  initialState,
   extraReducers: (builder) => {
-    // fetchContacts
     builder
       .addCase(fetchContacts.pending, (state) => {
         state.loading = true;
@@ -28,44 +23,15 @@ const contactsSlice = createSlice({
       .addCase(fetchContacts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
-
-    // deleteContacts
-    builder
-      .addCase(deleteContacts.pending, (state) => {
-        state.loading = true;
       })
-      .addCase(deleteContacts.fulfilled, (state, action) => {
-        state.loading = false;
-        state.items = state.items.filter(
-          (contact) => contact.id !== action.payload
-        );
-      })
-      .addCase(deleteContacts.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
-
-    // addContacts
-    builder
-      .addCase(addContacts.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(addContacts.fulfilled, (state, action) => {
-        state.loading = false;
+      .addCase(addContact.fulfilled, (state, action) => {
         state.items.push(action.payload);
       })
-      .addCase(addContacts.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.items = state.items.filter(
+          (contact) => contact.id !== action.payload.id
+        );
       });
-
-    // logout
-    builder.addCase(logout.fulfilled, (state) => {
-      state.items = [];
-      state.loading = false;
-      state.error = null;
-    });
   },
 });
 

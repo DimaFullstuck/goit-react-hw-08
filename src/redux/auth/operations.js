@@ -1,96 +1,62 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const goitApi = axios.create({
-  baseURL: "https://connections-api.goit.global/",
-});
+axios.defaults.baseURL = "https://connections-api.goit.global/";
 
-const setAuth = (token) => {
-  if (token) {
-    goitApi.defaults.headers.common.Authorization = `Bearer ${token}`;
-  } else {
-    delete goitApi.defaults.headers.common.Authorization;
-  }
+const setAuthHeader = (token) => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
+const clearAuthHeader = () => {
+  axios.defaults.headers.common.Authorization = "";
 };
 
 export const register = createAsyncThunk(
   "auth/register",
-  async (credentials, thunkApi) => {
+  async (credentials, thunkAPI) => {
     try {
-      const { data } = await goitApi.post("/users/signup", credentials);
-      setAuth(data.token); // Встановлення токена
+      const { data } = await axios.post("/users/signup", credentials);
+      setAuthHeader(data.token);
       return data;
     } catch (error) {
-      if (error.response) {
-        if (
-          error.response.status === 400 &&
-          error.response.data.code === 11000
-        ) {
-          return thunkApi.rejectWithValue(
-            "Ця електронна адреса вже використовується."
-          );
-        }
-        console.error("Registration error details:", error.response.data);
-      } else {
-        console.error("Registration error:", error.message);
-      }
-      return thunkApi.rejectWithValue(error.message);
+      console.log("Error during registration:", error.response.data);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
-
-export const login = createAsyncThunk(
+export const logIn = createAsyncThunk(
   "auth/login",
-  async (credentials, thunkApi) => {
+  async (credentials, thunkAPI) => {
     try {
-      const { data } = await goitApi.post("/users/login", credentials);
-      setAuth(data.token); // Встановлення токена
-      console.log("Token set to:", data.token);
+      const { data } = await axios.post("/users/login", credentials);
+      setAuthHeader(data.token);
       return data;
     } catch (error) {
-      if (error.response) {
-        console.error("Login error details:", error.response.data);
-      } else {
-        console.error("Login error:", error.message);
-      }
-      return thunkApi.rejectWithValue(error.response?.data || error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
-
-export const logout = createAsyncThunk("auth/logout", async (_, thunkApi) => {
+export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    await goitApi.post("/users/logout");
-    setAuth(); // Скидання токена
-    return { token: null };
+    await axios.post("/users/logout");
+    clearAuthHeader();
   } catch (error) {
-    console.error(
-      "Logout error:",
-      error.response ? error.response.data : error.message
-    );
-    return thunkApi.rejectWithValue(
-      error.response ? error.response.data : error.message
-    );
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
-
 export const refreshUser = createAsyncThunk(
   "auth/refresh",
   async (_, thunkAPI) => {
-    const savedToken = thunkAPI.getState().auth.token;
-
-    if (!savedToken) {
-      return thunkAPI.rejectWithValue("Токен не знайдено");
+    const state = thunkAPI.getState();
+    const persistToken = state.auth.token;
+    if (!persistToken) {
+      return thunkAPI.rejectWithValue("Unable to fresh user");
     }
-
     try {
-      setAuth(savedToken);
-      const response = await goitApi.get("/users/current");
-      return response.data;
+      setAuthHeader(persistToken);
+      const { data } = await axios.get("/users/current");
+      return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data?.message || error.message
-      );
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );

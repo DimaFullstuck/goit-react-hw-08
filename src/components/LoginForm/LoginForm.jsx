@@ -1,29 +1,38 @@
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import s from "./LoginForm.module.css";
-import { useDispatch } from "react-redux";
-import { login } from "../../redux/auth/operations.js";
-import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "../../redux/auth/selectors";
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  password: Yup.string()
-    .min(8, "Password must be at least 8 characters")
-    .required("Password is required"),
-});
+import { useDispatch, useSelector } from "react-redux";
+import { logIn } from "../../redux/auth/operations";
+import {
+  selectIsLoggedIn,
+  selectUser,
+  selectError,
+} from "../../redux/auth/selectors";
+import { useNavigate } from "react-router-dom";
+import styles from "./LoginForm.module.css";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const handleSubmit = (values, options) => {
-    console.log("Form values:", values);
-    dispatch(login(values));
-    options.resetForm();
-  };
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  if (isLoggedIn) return <Navigate to="/contacts" />;
+  const user = useSelector(selectUser);
+  const error = useSelector(selectError);
+  const navigate = useNavigate();
+
+  const validationSchema = Yup.object({
+    email: Yup.string().email("Invalid email address").required("Required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Required"),
+  });
+
+  const handleSubmit = (values, { resetForm }) => {
+    dispatch(logIn(values));
+    resetForm();
+  };
+
+  if (isLoggedIn) {
+    navigate("/contacts");
+  }
 
   return (
     <Formik
@@ -31,18 +40,22 @@ const LoginForm = () => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <Form className={s.form}>
+      <Form className={styles.form}>
         <label htmlFor="email">Email</label>
         <Field name="email" type="email" />
-        <ErrorMessage name="email" component="div" className={s.error} />
+        <ErrorMessage name="email" component="div" className={styles.error} />
 
         <label htmlFor="password">Password</label>
         <Field name="password" type="password" />
-        <ErrorMessage name="password" component="div" className={s.error} />
+        <ErrorMessage
+          name="password"
+          component="div"
+          className={styles.error}
+        />
 
         <button type="submit">Login</button>
 
-        {error && <p className={s.error}>{error}</p>}
+        {error && <p className={styles.error}>{error}</p>}
       </Form>
     </Formik>
   );

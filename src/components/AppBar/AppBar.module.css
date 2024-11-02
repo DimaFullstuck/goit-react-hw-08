@@ -1,19 +1,23 @@
-.wrapperAppBar {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 10px 20px;
+  background-color: #282c34;
   color: white;
-  font-weight: 700;
-  margin-top: 20px;
-  height: 50px;
-  border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.7);
-  transition: background-color 0.3s ease;
-  border-bottom: 2px solid #fff;
-  border-top: 2px solid #fff;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.9);
-    transition: background-color 0.3s ease;
-  }
+}
+
+.nav {
+  display: flex;
+}
+
+.link {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s;
+}
+
+.link:hover {
+  color: #61dafb;
 }

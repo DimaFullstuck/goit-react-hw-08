@@ -1,100 +1,38 @@
-.contactItem {
-  font: 0.5em sans-serif;
-  font-family: "Courier New", Courier, monospace;
+.contact {
   display: flex;
+  justify-content: start;
   align-items: center;
-  margin: 0 auto;
-  border-bottom: 2px solid #ffffff;
-  border-top: 2px solid #fff;
-  flex-direction: row;
-  gap: 6px;
-  height: 45px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.9));
-  width: 374px;
-  justify-content: space-between;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
-
-  &:hover {
-    background-color: #181918;
-    transform: translateY(-2px);
-  }
-}
-.contact_btn {
-  font: 1.2em sans-serif;
-
-  padding: 8px 16px;
-  background-color: #ddb826;
-  color: #1f1e1e;
-  cursor: pointer;
-  border: 1px solid rgba(44, 39, 39, 0);
-  transition: background-color 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border: 1px solid #000000;
   border-radius: 5px;
-  &:hover {
-    background-color: #dabe4f;
-    color: #f60e0e;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
-  }
-
-  &:active {
-    background-color: #e6e3e3;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  }
+  background-color: #f9f9f9;
+  margin-left: 10px;
 }
 
 .name {
-  font-size: 1.3em;
-  margin-bottom: 5px;
-  margin-top: 5px;
-  text-align: center;
-  color: #f8f5f5;
-  transition: color 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  width: 100%;
-  cursor: pointer;
-  margin-left: 10px;
-  border-radius: 4px;
+  display: block;
+  margin: 0;
+  font-weight: bold;
 }
+
 .number {
-  font-size: 1.3em;
-  text-align: center;
-  color: #f7f4f4;
-  transition: color 0.3s ease;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: left;
-  margin-bottom: 5px;
-  cursor: pointer;
-  margin-left: 10px;
-  border-radius: 4px;
+  display: block;
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #555;
 }
-.icon_name {
-  font-size: 1.5em;
-  font-weight: 500;
-  margin-right: 10px;
-  fill: rgb(34, 173, 171);
-  transition: color 0.3s ease;
+
+.deleteButton {
+  margin-left: 15px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  background-color: #e07b7b;
+  color: rgb(37, 3, 3);
+  border: 1px solid #555;
+  border-radius: 5px;
   cursor: pointer;
-  &:hover {
-    color: #0f0f0f;
-  }
-  margin-right: 10px;
 }
-.icon_number {
-  font-size: 1.5em;
-  font-weight: 500;
-  color: #333;
-  padding: 0;
-  transition: color 0.3s ease;
-  cursor: pointer;
-  &:hover {
-    color: #0f0f0f;
-  }
-  fill: rgb(28, 148, 148);
-  margin-right: 10px;
+
+.deleteButton:hover {
+  background-color: #ff4c4c;
 }

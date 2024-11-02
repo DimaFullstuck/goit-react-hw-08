@@ -1,30 +1,19 @@
-// src/components/UserMenu/UserMenu.jsx
-import { useDispatch } from "react-redux";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import s from "./UserMenu.module.css";
-import { logout } from "../../redux/auth/operations.js";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/auth/selectors.js";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../../redux/auth/operations";
+import { selectUser } from "../../redux/auth/selectors";
+import styles from "./UserMenu.module.css";
 
-const UserMenu = () => {
-  const user = useSelector(selectUser);
+export const UserMenu = () => {
   const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    dispatch(logout()); // Викличте функцію logout
-  };
+  const user = useSelector(selectUser);
 
   return (
-    <div className={s.wrapper}>
-      <h1 className={s.h1}>Phonebook</h1>
-      <Avatar />
-      <div className={s.nameuser}>{user.name}</div>
-      <Button variant="contained" color="secondary" onClick={handleLogout}>
+    <div className={styles.container}>
+      <p className={styles.text}>Welcome, {user.name}</p>
+      <button onClick={() => dispatch(logOut())} className={styles.button}>
         Logout
-      </Button>
+      </button>
     </div>
   );
 };
-
-export default UserMenu;
