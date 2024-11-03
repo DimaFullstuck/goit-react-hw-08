@@ -30,12 +30,11 @@ const contactsSlice = createSlice({
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.items = state.items.filter(
           (contact) => contact.id !== action.payload.id
-        )
-      };
-      addCase(logOut.fulfilled, (state) => {
-        state.items = []; 
+        );
       })
-      );
+      .addCase(logOut.fulfilled, (state) => {
+        state.items = [];
+      });
   },
 });
 
