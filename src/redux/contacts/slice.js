@@ -32,9 +32,7 @@ const contactsSlice = createSlice({
           (contact) => contact.id !== action.payload.id
         );
         .addCase(logOut.fulfilled, (state) => {
-        state.items = [];
-        state.loading = false;
-        state.error = null; 
+        state.items = []; 
       })
       });
   },
